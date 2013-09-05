@@ -8,8 +8,20 @@
 <?php echo $form->errorSummary($model); ?>
 
 	<?php echo $form->dropDownListRow($model,'bus_id',CHtml::listData(Buses::model()->findAll(),'id','name'),array('class'=>'span2','empty'=>'')); ?>
-
-	<?php echo $form->dropDownListRow($model,'driver_id',CHtml::listData(Drivers::model()->findAll(),'id','name'),array('class'=>'span2','empty'=>'')); ?>
+        <?php echo $form->labelEx($model,'driver_id')?>
+        <?php
+          $this->widget('bootstrap.widgets.TbTypeahead', array(
+            'model'=>$model,
+            'attribute'=>'driver_id',
+            'options'=>array(
+            'name'=>'driver_id',
+            'source'=>$drivers,
+            'items'=>4,
+            'matcher'=>"js:function(item) {
+              return ~item.toLowerCase().indexOf(this.query.toLowerCase());
+            }",
+        )));
+       ?>
 
 	<?php echo $form->dropDownListRow($model,'route_id',CHtml::listData(Routes::model()->findAll(),'id','line'),array('class'=>'span2','empty'=>'')); ?>
 

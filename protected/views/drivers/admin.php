@@ -9,6 +9,7 @@
 'columns'=>array(
 		array('name'=>'name',
 		      'value'=>'ucwords(strtolower($data->name))'),
+		'emp_id',
 		'contact_no',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',

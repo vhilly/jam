@@ -29,11 +29,11 @@ class Drivers extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, contact_no', 'required'),
-			array('name, contact_no', 'length', 'max'=>255),
+			array('name', 'required'),
+			array('name, contact_no,emp_id', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, contact_no', 'safe', 'on'=>'search'),
+			array('id, name,emp_id, contact_no', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +56,7 @@ class Drivers extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'emp_id'=>'Employee ID',
 			'name' => 'Name',
 			'contact_no' => 'Contact No',
 		);
@@ -81,6 +82,7 @@ class Drivers extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('emp_id',$this->emp_id,true);
 		$criteria->compare('contact_no',$this->contact_no,true);
 
 		return new CActiveDataProvider($this, array(

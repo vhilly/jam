@@ -92,6 +92,6 @@
  function printTkt(){ 
   window.print();
 
-  document.location.href='<?=Yii::app()->createUrl("/tickets/sell&tag=$tag")?>';
+  document.location.href='<?=Yii::app()->createUrl("/tickets/sell&tag=$tag&total_amt=$total_amt")?>';
 }
 </script>

@@ -64,24 +64,37 @@ $this->render('view',array(
 public function actionCreate()
 {
 $model=new Schedules;
+$drivers = array();
+$drivers_to_id = array();
+$id_to_driver = array();
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
-
+foreach(Drivers::model()->findAll() as $d){
+  array_push($drivers,trim($d->emp_id.' - '.$d->name));
+  $drivers_to_id[trim($d->emp_id.' - '.$d->name)]=$d->id;
+  $id_to_driver[$d->id]=trim($d->emp_id.' - '.$d->name);
+}
 if(isset($_POST['Schedules']))
 {
+$did = $_POST['Schedules']['driver_id'];
 $dt = $_POST['Schedules']['departure_time'];
 $da = $_POST['Schedules']['arrival_time'];
 $_POST['Schedules']['departure_time'] = date('H:i:s',strtotime($dt));
 $_POST['Schedules']['arrival_time'] = date('H:i:s',strtotime($da));
+if(!isset($drivers_to_id[trim($did)])){
+  Yii::app()->user->setFlash('error', 'Driver Does Not Exist!');
+  $this->redirect(array('admin'));
+}
+
+$_POST['Schedules']['driver_id'] = $drivers_to_id[trim($did)];
 $model->attributes=$_POST['Schedules'];
 if($model->save()){
 Yii::app()->user->setFlash('success', 'Bus Schedule has been added!');
 $this->redirect(array('admin'));
 }
+$model->driver_id = $id_to_driver[$model->driver_id];
 }
 $this->render('create',array(
-'model'=>$model,
+'model'=>$model,'drivers'=>$drivers,
 ));
 }
 public function actionClose($id){
@@ -102,6 +115,15 @@ public function actionUpdate($id)
 {
 $model=$this->loadModel($id);
 
+$drivers = array();
+$drivers_to_id = array();
+$id_to_driver = array();
+
+foreach(Drivers::model()->findAll() as $d){
+  array_push($drivers,trim($d->emp_id.' - '.$d->name));
+  $drivers_to_id[trim($d->emp_id.' - '.$d->name)]=$d->id;
+  $id_to_driver[$d->id]=trim($d->emp_id.' - '.$d->name);
+}
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
@@ -109,8 +131,14 @@ if(isset($_POST['Schedules']))
 {
 $dt = $_POST['Schedules']['departure_time'];
 $da = $_POST['Schedules']['arrival_time'];
+$did = $_POST['Schedules']['driver_id'];
 $_POST['Schedules']['departure_time'] = date('H:i:s',strtotime($dt));
 $_POST['Schedules']['arrival_time'] = date('H:i:s',strtotime($da));
+if(!isset($drivers_to_id[trim($did)])){
+  Yii::app()->user->setFlash('error', 'Driver Does Not Exist!');
+  $this->redirect(array('admin'));
+}
+$_POST['Schedules']['driver_id'] = $drivers_to_id[trim($did)];
 $model->attributes=$_POST['Schedules'];
 if($model->save()){
 Yii::app()->user->setFlash('success', 'Bus Schedule has been updated!');
@@ -119,8 +147,9 @@ $this->redirect(array('admin'));
 }
 $model->departure_time=date('g:i A',strtotime($model->departure_time));
 $model->arrival_time=date('g:i A',strtotime($model->arrival_time));
+$model->driver_id = $id_to_driver[$model->driver_id];
 $this->render('update',array(
-'model'=>$model,
+'model'=>$model,'drivers'=>$drivers
 ));
 }
 

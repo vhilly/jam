@@ -61,6 +61,7 @@ $this->render('view',array(
 	// renders the view file 'protected/views/site/index.php'
 	// using the default layout 'protected/views/layouts/main.php'
         $tag = isset($_GET['tag']) ? $_GET['tag'] : '';
+        $total_amt = isset($_GET['total_amt']) ? number_format($_GET['total_amt']) : 0;
         $criteria= new CDbCriteria();
         $criteria=array(
           'group'=>'schedule_id',
@@ -68,6 +69,8 @@ $this->render('view',array(
         );
         $bookedTkts = CHtml::listData(Tickets::model()->findAll($criteria),'schedule_id','cnt');
         $schedules = Schedules::model()->findAll(array('condition'=>'status=1 AND departure_date=CURDATE() limit 3'));
+        if($total_amt)
+          Yii::app()->user->setFlash('info', "TOTAL AMOUNT: $total_amt");
 	$this->render('sell',array('schedules'=>$schedules,'bookedTkts'=>$bookedTkts,'tag'=>$tag));
 
   }
@@ -78,6 +81,7 @@ $this->render('view',array(
 * If creation is successful, the browser will be redirected to the 'view' page.
 */
   public function actionBuy(){
+    $total_amt =0;
     if(isset($_GET['Tickets'])){
       $pcs = isset($_GET['pcs']) ? $_GET['pcs'] : null;
       $tag = isset($_GET['tag']) ? $_GET['tag'] : '';
@@ -112,12 +116,13 @@ $this->render('view',array(
                               'dop'=>'DATE OF PURCHASE:'.$model->created_at,
                               'tkt_type'=>$model->ticketType->name,'amt'=>'P'.$amt
                         );
+        $total_amt += $amt;
         $counter++;
 	//echo Yii::app()->user->id;
       }
     }
     $this->renderPartial('print',array(
-      'tktDetails'=>$tktDetails,'tag'=>$tag,
+      'tktDetails'=>$tktDetails,'tag'=>$tag,'total_amt'=>$total_amt
     ));
   }
 
