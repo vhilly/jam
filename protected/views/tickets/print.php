@@ -55,7 +55,9 @@
     Teller: <?=Yii::app()->user->name?>
   </div>
   <div class="center tbl1">
-    <?=$t['amt']?>
+
+    	<?$amt = $t['amt']=='0.00' ? $t['amt']:'&nbsp;';?>
+	<?=$amt?>
   </div>
   <div class="center tbl1">
     <?=$t['tkt_type']?>
@@ -92,6 +94,6 @@
  function printTkt(){ 
   window.print();
 
-  document.location.href='<?=Yii::app()->createUrl("/tickets/sell&tag=$tag&total_amt=$total_amt")?>';
+  //document.location.href='<?=Yii::app()->createUrl("/tickets/sell&tag=$tag&total_amt=$total_amt")?>';
 }
 </script>

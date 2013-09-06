@@ -59,7 +59,8 @@
     <tr>
 	<td><?=$r['ptype']?></td>
 	<td><?=$r['tcount']?></td>
-	<td>P <?=$r['tamt']?></td>
+	<td>P <?=number_format($r['tamt'],2)?></td>
+
     </tr>
     <? endforeach;?>
     <tr>
