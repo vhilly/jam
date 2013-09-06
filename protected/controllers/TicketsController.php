@@ -126,6 +126,26 @@ $this->render('view',array(
     ));
   }
 
+  public function actionPrint($id){
+    $tag=0;
+    $total_amt=0;
+    $model=$this->loadModel($id);
+    $tktDetails = array();
+    $dscnts = CHtml::listData(PassengerTypes::model()->findAll(),'id','discount');
+    $dscnt=$dscnts[$model->passenger_type_id] ? $model->route->fare * $dscnts[$model->passenger_type_id] / 100 : 0;
+    $amt = number_format($model->route->fare-$dscnt,2);
+    $departure=isset($model->schedule->departure_date) ? $model->schedule->departure_date.' '.date('g:i A',strtotime($model->schedule->departure_time)) : 'OPEN';
+    $tktDetails[] = array('tkt_no'=>$model->tkt_no,'bus'=>isset($model->bus->name) ? $model->bus->name : '',
+                              'route'=>$model->route->line,'ptype'=>$model->passengerType->name,
+                              'departure'=>'ETD:'.$departure,
+                              'dop'=>'DATE OF PURCHASE:'.$model->created_at,
+                              'tkt_type'=>$model->ticketType->name,'amt'=>'P'.$amt
+                        );
+ 
+    $this->renderPartial('print',array(
+      'tktDetails'=>$tktDetails,'tag'=>$tag,'total_amt'=>$total_amt
+    ));
+  }
   /* conductor */
   public function actionBusAssignment(){
     $this->layout = "main";

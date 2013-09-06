@@ -29,7 +29,7 @@
           array('label'=>'Home', 'url'=>array('/site/index'), 'visible'=>!Yii::app()->user->isGuest,'active'=>false),
           array('label'=>'Trips', 'url'=>array('/schedules/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'),'active'=>false),
           array('label'=>'Purchase', 'url'=>array('/tickets/sell'), 'active'=>false, 'visible'=>Yii::app()->user->checkAccess('Teller')),
-          array('label'=>'Tickets', 'url'=>array('/tickets/admin'), 'active'=>false, 'visible'=>Yii::app()->user->checkAccess('Admin')),
+          array('label'=>'Tickets', 'url'=>array('/tickets/admin'), 'active'=>false, 'visible'=>Yii::app()->user->checkAccess('Teller')),
           array('label'=>'Routes', 'url'=>array('/routes/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),
           array('label'=>'Passenger Types', 'url'=>array('/passengerTypes/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),
           array('label'=>'Buses', 'url'=>array('/buses/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),

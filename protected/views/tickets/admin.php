@@ -19,7 +19,14 @@
 		'created_by',
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
-'template'=>'{update}',
+'template'=>'{reprint} {update}',
+'buttons'=>array(            
+  'reprint' => array(
+    'icon'=>'icon-barcode',
+    'label'=>'Reprint Ticket',
+     'url'=>'Yii::app()->createUrl("tickets/print",array("id"=>$data->id))',
+   ),
+),
 ),
 ),
 )); ?>
