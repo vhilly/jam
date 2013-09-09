@@ -33,6 +33,7 @@
 </style>
 
 
+<body onload="printTkt()">
 
 
 <?php foreach($tktDetails as $t): ?>
@@ -89,9 +90,8 @@
 
 </body>
 <script>
-  window.print();
  function printTkt(){ 
-
+  window.print();
   document.location.href='<?=Yii::app()->createUrl("/tickets/sell&tag=$tag&total_amt=$total_amt")?>';
 }
 </script>
