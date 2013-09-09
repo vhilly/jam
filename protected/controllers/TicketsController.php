@@ -105,7 +105,7 @@ $this->render('view',array(
         $tktNo->saveCounters(array('value'=>1));
         $model->tkt_no = tktNum($tktNo->value);
         $dscnt=$dscnts[$model->passenger_type_id] ? $model->route->fare * $dscnts[$model->passenger_type_id] / 100 : 0;
-        $amt = number_format($model->route->fare-$dscnt,2);
+        $amt = number_format($model->route->fare-$dscnt);
         $model->amt = $amt;
 	$model->created_by=Yii::app()->user->id;
         $model->save();
@@ -114,7 +114,7 @@ $this->render('view',array(
                               'route'=>$model->route->line,'ptype'=>$model->passengerType->name,
                               'departure'=>'ETD:'.$departure,
                               'dop'=>'DATE OF PURCHASE:'.$model->created_at,
-                              'tkt_type'=>$model->ticketType->name,'amt'=>'P'.$amt
+                              'tkt_type'=>$model->ticketType->name,'amt'=>$amt
                         );
         $total_amt += $amt;
         $counter++;
@@ -133,13 +133,13 @@ $this->render('view',array(
     $tktDetails = array();
     $dscnts = CHtml::listData(PassengerTypes::model()->findAll(),'id','discount');
     $dscnt=$dscnts[$model->passenger_type_id] ? $model->route->fare * $dscnts[$model->passenger_type_id] / 100 : 0;
-    $amt = number_format($model->route->fare-$dscnt,2);
+    $amt = number_format($model->route->fare-$dscnt);
     $departure=isset($model->schedule->departure_date) ? $model->schedule->departure_date.' '.date('g:i A',strtotime($model->schedule->departure_time)) : 'OPEN';
     $tktDetails[] = array('tkt_no'=>$model->tkt_no,'bus'=>isset($model->bus->name) ? $model->bus->name : '',
                               'route'=>$model->route->line,'ptype'=>$model->passengerType->name,
                               'departure'=>'ETD:'.$departure,
                               'dop'=>'DATE OF PURCHASE:'.$model->created_at,
-                              'tkt_type'=>$model->ticketType->name,'amt'=>'P'.$amt
+                              'tkt_type'=>$model->ticketType->name,'amt'=> $amt
                         );
  
     $this->renderPartial('print',array(

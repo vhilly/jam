@@ -33,7 +33,6 @@
 </style>
 
 
-<body onload="printTkt()">
 
 
 <?php foreach($tktDetails as $t): ?>
@@ -56,8 +55,7 @@
   </div>
   <div class="center tbl1">
 
-    	<?$amt = $t['amt']=='0.00' ? $t['amt']:'&nbsp;';?>
-	<?=$amt?>
+    	<?=$amt = $t['amt'] ? 'P'.$t['amt'] : '&nbsp;'?>
   </div>
   <div class="center tbl1">
     <?=$t['tkt_type']?>
@@ -91,8 +89,8 @@
 
 </body>
 <script>
- function printTkt(){ 
   window.print();
+ function printTkt(){ 
 
   document.location.href='<?=Yii::app()->createUrl("/tickets/sell&tag=$tag&total_amt=$total_amt")?>';
 }
