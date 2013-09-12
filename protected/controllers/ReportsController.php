@@ -104,8 +104,9 @@ public function actionTripOperationReport(){
 
 }
 
-
-
+public function actionTellersPrint(){
+	$this->renderPartial('tellersPrint');
+}
 
 public function actionTellersReport(){
 
@@ -117,7 +118,7 @@ $rf = new ReportForm;
     }
     $date = $rf->date_range ? $rf->date_range : NULL;
     $user_name=$rf->user_name;
-	
+   
         $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE created_by= '".$user_name."'";
 	if($date)
           $sql .= " AND DATE(created_at) BETWEEN $date";
@@ -140,14 +141,20 @@ $rf = new ReportForm;
 		WHERE t.created_by = '".$user_name."'";
 		
 		if($date)
-      		$sql .= " AND DATE(created_at) BETWEEN $date GROUP BY ptype";
+         	  $sql .= " AND DATE(created_at) BETWEEN $date";
 
-//die($sql);
+
+		
+    $sql .= "GROUP BY ptype";
+		
    $result = Yii::app()->db->createCommand($sql)->query();
-   $this->render('tellersReport',array('result'=>$result,'rf'=>$rf,'date'=>$date,'total'=>$total,'totalcount'=>$totalcount));
-
-
-
+   $this->render('tellersReport',array('result'=>$result,
+					'rf'=>$rf,
+					'date'=>$date,
+					'total'=>$total,
+					'totalcount'=>$totalcount,
+					'user_name'=>$user_name,
+					'date'=>$date));
 }
 
 
@@ -159,19 +166,51 @@ $rf = new ReportForm;
     if(isset($_POST['ReportForm'])){
       $rf->attributes=$_POST['ReportForm'];
     }
-    //$date = $rf->date_range ? $rf->date_range : NULL;
+
+ $date = $rf->date_range ? $rf->date_range : NULL;
+
     $user_name=Yii::app()->user->id;
 
-        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE created_by= '".$user_name."' AND DATE(created_at)=CURDATE()";
+        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE created_by= '".$user_name."'";
+        if($date)
+          $sql .= " AND DATE(created_at) BETWEEN $date";
+
+    $result = Yii::app()->db->createCommand($sql)->query();
+
+ foreach($result as $r){
+        $total = number_format($r['amt'],2);
+        $totalcount = number_format($r['count']);
+        }
 
 
-//die($sql);
+#        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE created_by= '".$user_name."' AND DATE(created_at)=CURDATE()";
 
 
+ $sql="SELECT SUM( t.amt ) AS tamt, COUNT( t.amt ) AS tcount, p.name AS ptype
+                FROM tickets t
+                INNER JOIN passenger_types p ON p.id = passenger_type_id
+                WHERE t.created_by = '".$user_name."'";
 
-//die($sql);
+                if($date)
+                  $sql .= " AND DATE(created_at) BETWEEN $date";
+  
+
+
+    $sql .= "GROUP BY ptype";
+              
    $result = Yii::app()->db->createCommand($sql)->query();
-   $this->render('tellersRevenue',array('result'=>$result,'rf'=>$rf));
+   $this->render('tellersRevenue',array('result'=>$result,
+                                        'rf'=>$rf,
+                                        'date'=>$date,
+                                        'total'=>$total,
+                                        'totalcount'=>$totalcount,
+                                        'user_name'=>$user_name,
+                                        'date'=>$date));
+
+
+
+#   $result = Yii::app()->db->createCommand($sql)->query();
+#   $this->render('tellersRevenue',array('result'=>$result,'rf'=>$rf));
 
 
 

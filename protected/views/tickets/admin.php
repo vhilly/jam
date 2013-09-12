@@ -16,7 +16,8 @@
 		'amt',
 		array('name'=>'status','value'=>'$data->status ==1 ? "Open" : "Closed"','filter'=>array('1'=>'Valid','2'=>'Canceled')),
 		'created_at',
-		'created_by',
+#		'created_by',
+		array('name'=>'created_by','value'=>'$data->user->username','filter'=>CHtml::listData(Users::model()->findAll(),'id','username')),
 array(
 'class'=>'bootstrap.widgets.TbButtonColumn',
 'template'=>'{reprint} {update}',

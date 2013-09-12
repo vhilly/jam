@@ -1,5 +1,3 @@
-
-
 <style>
 
 .tbl{
@@ -27,9 +25,6 @@
         'options' => array('callback'=>'js:function(start, end){$("#ReportForm_date_range").val("\'"+ start.toString("yyyy-M-d")+"\' AND \'"+ end.toString("yyyy-M-d")+"\'") ;}')
       ));
 
-
-
-
     echo $form->dropDownListRow($rf,'user_name',CHtml::listData(User::model()->findAll(),'id','username'),array('empty'=>''));
     $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Go'));
     $this->endWidget();
@@ -47,12 +42,12 @@
     'htmlOptions' => array('class'=>'bootstrap-widget-table well span')
   ));?>
 
-<?php if($result):?>
+<?php if(count($result)):?>
   <table class="span5">
     <tr>
       <th>Passenger Type</th>
       <th>Total Count</th>
-      <th>Total Ammount</th>
+      <th>Total Amount</th>
     </tr>
 
     <? foreach($result as $r):?>
@@ -71,8 +66,14 @@
   </table>
  
 
-<?php //$this->widget('bootstrap.widgets.TbButton', array('label'=>'Check-In and Print Boarding Pass','type'=>'info','buttonType'=>'link','url'=>Yii::app()->createUrl('/reports/tellersPrint',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'','width'=>'' ,
-      //'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array('result'=>$result,'print'=>1)).'");this.submit();')))
+<?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Print','type'=>'info','buttonType'=>'button','url'=>Yii::app()->createUrl('/reports/tellersPrint',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'','width'=>'' ,
+      'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array(
+				'totalcount'=>$totalcount,
+				'total'=>$total,
+				'result'=>$r,
+				'totalcount'=>$totalcount,
+                                'user_name'=>$user_name,
+				'print'=>1)).'");this.submit();')))
     ?>
 <?php endif;?>
   <?php $this->endWidget();?>

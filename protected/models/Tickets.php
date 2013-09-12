@@ -59,6 +59,7 @@ class Tickets extends CActiveRecord
 			'route' => array(self::BELONGS_TO, 'Routes', 'route_id'),
 			'passengerType' => array(self::BELONGS_TO, 'PassengerTypes', 'passenger_type_id'),
 			'ticketType' => array(self::BELONGS_TO, 'TicketTypes', 'ticket_type_id'),
+			'user'=> array(self::BELONGS_TO, 'Users', 'created_by')
 		);
 	}
 
