@@ -42,7 +42,7 @@ class Tickets extends CActiveRecord
 			array('tkt_no', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, tkt_no,amt,jammers_id, schedule_id, seat_id, bus_id, route_id, status, created_at', 'safe', 'on'=>'search'),
+			array('id, tkt_no,amt,jammers_id, schedule_id, seat_id, bus_id, route_id, status, created_at, created_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,6 +79,7 @@ class Tickets extends CActiveRecord
 			'status' => 'Status',
 			'amt' => 'Amount',
 			'created_at' => 'Created At',
+			'created_by' => 'Created By',
 		);
 	}
 
@@ -110,6 +111,7 @@ class Tickets extends CActiveRecord
 		$criteria->compare('route_id',$this->route_id);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created_at',$this->created_at,true);
+		$criteria->compare('created_by',$this->created_by,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
