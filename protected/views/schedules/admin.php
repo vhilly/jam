@@ -26,8 +26,8 @@
                         true),
 			'sortable'=>true,
                 ),
-                array('name'=>'departure_time','value'=>'date("g:i A",strtotime($data->departure_time))'),
-                array('name'=>'arrival_time','value'=>'date("g:i A",strtotime($data->arrival_time))'),
+                'departure_time',
+                'arrival_time',
 		array('name'=>'status','filter'=>array('1'=>'Open','2'=>'Closed'),'value'=>'$data->status == 1 ? "Open" : "Closed"'),
 		/*
 		'created_at',
