@@ -119,7 +119,7 @@ $rf = new ReportForm;
     $date = $rf->date_range ? $rf->date_range : NULL;
     $user_name=$rf->user_name;
    
-        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE created_by= '".$user_name."'";
+        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE status = 1 AND created_by= '".$user_name."'";
 	if($date)
           $sql .= " AND DATE(created_at) BETWEEN $date";
 	
@@ -138,7 +138,7 @@ $rf = new ReportForm;
     $sql="SELECT SUM( t.amt ) AS tamt, COUNT( t.amt ) AS tcount, p.name AS ptype
 		FROM tickets t
 		INNER JOIN passenger_types p ON p.id = passenger_type_id
-		WHERE t.created_by = '".$user_name."'";
+		WHERE t.status = 1 AND t.created_by = '".$user_name."'";
 		
 		if($date)
          	  $sql .= " AND DATE(created_at) BETWEEN $date";
@@ -171,7 +171,7 @@ $rf = new ReportForm;
 
     $user_name=Yii::app()->user->id;
 
-        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE created_by= '".$user_name."'";
+        $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE status=1 AND created_by= '".$user_name."'";
         if($date)
           $sql .= " AND DATE(created_at) BETWEEN $date";
 
@@ -189,7 +189,7 @@ $rf = new ReportForm;
  $sql="SELECT SUM( t.amt ) AS tamt, COUNT( t.amt ) AS tcount, p.name AS ptype
                 FROM tickets t
                 INNER JOIN passenger_types p ON p.id = passenger_type_id
-                WHERE t.created_by = '".$user_name."'";
+                WHERE t.status = 1 AND t.created_by = '".$user_name."'";
 
                 if($date)
                   $sql .= " AND DATE(created_at) BETWEEN $date";

@@ -13,7 +13,7 @@
       ));
     echo 'Teller : '; # . Yii::app()->user->name;
     $user = User::model()->findByPk(Yii::app()->user->id);
-    echo '<b>' . $user->profile->firstname . '&nbsp' . $user->profile->lastname . '</b> ';
+    echo '<b>' . ucwords(strtolower($user->profile->firstname)) . '&nbsp' . ucwords(strtolower($user->profile->lastname)) . '</b> ';
 
     $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Go'));
     $this->endWidget();
