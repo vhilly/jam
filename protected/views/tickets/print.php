@@ -1,35 +1,34 @@
 <style>
-
-.tbl1{
+.tbl1{	
 	font-family:"Ubuntu";
-        font-size:15;
-        
+        font-size:20;  
 }
 
 .tbl2{
-        font-size:10;
+        font-size:17;
         
 }
 
 .tbl3{
-        font-size:12;
-
+        font-size:8;
 }
 
 .tbl4{
-        font-size:15;
+        font-size:22;
 }
+
 .tbl5{
-        font-size:15;
+        font-size:20;
 }
 
+.tbl td{
+	padding:0;
+}
 
-.tbl td{padding:0;
-        
-        }
 .center {
   text-align:center;
 }
+
 </style>
 
 
@@ -48,7 +47,7 @@
   <div class="tbl3">
     Route: <?=$t['route']?>
   </div>
-  <div class="tbl3">
+  <div class="tbl3" style="overflow:hidden;height:10px">
     Driver#: <?=isset($t['driver'])?$t['driver']:''?>
   </div>
   <div class="tbl3">
@@ -70,13 +69,13 @@
   <div class="tbl3 center">
     <img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$t['tkt_no']))?>' >
   </div>
-  <div class="center tbl2">KEEP TICKET FOR INSPECTION</div>
-  <div class="center tbl2">Thank you ride again</div>
+  <div class="center tbl3">KEEP TICKET FOR INSPECTION</div>
+  <div class="center tbl3">Thank you ride again</div>
   <div class="center tbl3">Passenger's Copy</div>
 </div>
 
 <div style="border-top:1px dashed black;padding-top:10px">
-  <div class="tbl5 center"><b>Inspector's Copy</b></div>
+  <div class="tbl2 center"><b>Inspector's Copy</b></div>
   <div class="tbl3 center">
     <img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$t['tkt_no']))?>' >
   </div>
@@ -89,7 +88,7 @@
   <div class="tbl3">
     Route: <?=$t['route']?>
   </div>
-  <div class="tbl3">
+  <div class="tbl3" style="overflow:hidden;height:10px">
     Driver#: <?=isset($t['driver'])?$t['driver']:''?>
   </div>
   <div class="tbl3">
