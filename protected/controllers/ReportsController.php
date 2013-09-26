@@ -104,9 +104,6 @@ public function actionTripOperationReport(){
 
 }
 
-public function actionTellersPrint(){
-	$this->renderPartial('tellersPrint');
-}
 
 public function actionTellersReport(){
 
@@ -155,6 +152,19 @@ $rf = new ReportForm;
 					'totalcount'=>$totalcount,
 					'user_name'=>$user_name,
 					'date'=>$date));
+}
+
+
+public function actionTellersPrint(){
+
+# $ptype = CHtml::listData(PassengerTypes::model()->findAll(),'id','name');
+  
+ $this->renderPartial('tellersPrint');
+
+/*  $this->renderPartial('tellersPrint',array(
+    '','totalcount'=>$totalcount,'total'=>$total
+  ));
+*/
 }
 
 
@@ -215,10 +225,6 @@ $rf = new ReportForm;
 
 
 }
-
-
-
-
 
 
 public function actionDailyRevenueReport(){
