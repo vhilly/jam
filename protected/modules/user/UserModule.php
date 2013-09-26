@@ -85,7 +85,7 @@ class UserModule extends CWebModule
 	/**
 	 * @var boolean
 	 */
-	public $captcha = array('registration'=>true);
+	public $captcha = array('registration'=>false);
 	
 	/**
 	 * @var boolean

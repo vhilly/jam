@@ -2,7 +2,7 @@
 
 .tbl1{
 	font-family:"Ubuntu";
-        font-size:20;
+        font-size:15;
         
 }
 
@@ -17,10 +17,10 @@
 }
 
 .tbl4{
-        font-size:22;
+        font-size:15;
 }
 .tbl5{
-        font-size:20;
+        font-size:15;
 }
 
 
@@ -43,19 +43,25 @@
     <img src="images/logo.jpg" width="30" height="30" style="float:left">
   </div>
   <div class="tbl3">
-    Bus#: <?=$t['bus']?>
+    Bus#: <?=isset($t['bus'])?$t['bus']:''?>
   </div>
   <div class="tbl3">
     Route: <?=$t['route']?>
   </div>
   <div class="tbl3">
-    Date: <?=date("Y/m/d")?>
+    Driver#: <?=isset($t['driver'])?$t['driver']:''?>
   </div>
   <div class="tbl3">
-    Teller: <?=Yii::app()->user->name?>
+    Date: <?=isset($t['dop']) ? $t['dop']: date('Y-m-d')?>
+  </div>
+  <div class="tbl3">
+    Departure: <?=isset($t['departure'])?$t['departure']:''?>
+  </div>
+  <div class="tbl3">
+    <?php $teller=Yii::app()->user->getUserByName(Yii::app()->user->name);?>
+    Teller: <?= $teller->profile->firstname.' '.$teller->profile->lastname?>
   </div>
   <div class="center tbl1">
-
     	<?=$amt = $t['amt'] ? 'P'.$t['amt'] : '&nbsp;'?>
   </div>
   <div class="center tbl1">
@@ -74,14 +80,27 @@
   <div class="tbl3 center">
     <img src='<?=Yii::app()->createUrl('barcodeGenerator/generateBarcode',array('code'=>$t['tkt_no']))?>' >
   </div>
+  <div class="center tbl1">
+    	<?=$amt = $t['amt'] ? 'P'.$t['amt'] : '&nbsp;'?>
+  </div>
   <div class="tbl3">
-    Bus#: <?=$t['bus']?>
+    Bus#: <?=isset($t['bus'])?$t['bus']:''?>
   </div>
   <div class="tbl3">
     Route: <?=$t['route']?>
   </div>
   <div class="tbl3">
-    Date: <?=date("Y/m/d")?>
+    Driver#: <?=isset($t['driver'])?$t['driver']:''?>
+  </div>
+  <div class="tbl3">
+    Date: <?=isset($t['dop']) ? $t['dop']: date('Y-m-d')?>
+  </div>
+  <div class="tbl3">
+    Departure: <?=isset($t['departure'])?$t['departure']:''?>
+  </div>
+  <div class="tbl3">
+    <?php $teller=Yii::app()->user->getUserByName(Yii::app()->user->name);?>
+    Teller: <?= $teller->profile->firstname.' '.$teller->profile->lastname?>
   </div>
 </div>
 

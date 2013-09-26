@@ -39,7 +39,7 @@ class Tickets extends CActiveRecord
 		return array(
 			array('tkt_no,amt,ticket_type_id,passenger_type_id, route_id', 'required'),
 			array('schedule_id,jammers_id seat_id, bus_id,ticket_type_id,passenger_type_id, route_id, status', 'numerical', 'integerOnly'=>true),
-			array('tkt_no', 'length', 'max'=>32),
+			array('tkt_no,created_at', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, tkt_no,amt,jammers_id, schedule_id, seat_id, bus_id, route_id, status, created_at, created_by', 'safe', 'on'=>'search'),
