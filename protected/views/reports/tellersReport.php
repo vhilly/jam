@@ -65,14 +65,18 @@
     </tr>
   </table>
  
+<? $user= User::model()->findByPk($user_name);?>
+<? $userFname=ucwords(strtolower($user->profile->firstname)) . '&nbsp' . ucwords(strtolower($user->profile->lastname));?>
+
+
 
 <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Print','type'=>'info','buttonType'=>'button','url'=>Yii::app()->createUrl('/reports/tellersPrint',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'','width'=>'' ,
-      'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array(
+      'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array('result'=>$r,
 				'totalcount'=>$totalcount,
 				'total'=>$total,
-				'result'=>$r,
 				'totalcount'=>$totalcount,
-                                'user_name'=>$user_name,
+                                'user_name2'=>$userFname,
+				'dateRange'=>$rf['date_range'],
 				'print'=>1)).'");this.submit();')))
     ?>
 <?php endif;?>

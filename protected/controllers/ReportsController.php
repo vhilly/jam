@@ -159,12 +159,12 @@ public function actionTellersPrint(){
 
 # $ptype = CHtml::listData(PassengerTypes::model()->findAll(),'id','name');
   
- $this->renderPartial('tellersPrint');
+# $this->renderPartial('tellersPrint');
 
-/*  $this->renderPartial('tellersPrint',array(
-    '','totalcount'=>$totalcount,'total'=>$total
+  $this->renderPartial('tellersPrint',array(
+    'totalcount'=>0
   ));
-*/
+
 }
 
 
@@ -180,7 +180,7 @@ $rf = new ReportForm;
  $date = $rf->date_range ? $rf->date_range : NULL;
 
     $user_name=Yii::app()->user->id;
-
+    $user_name2=Yii::app()->user->username;
         $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE status=1 AND created_by= '".$user_name."'";
         if($date)
           $sql .= " AND DATE(created_at) BETWEEN $date";
@@ -214,7 +214,7 @@ $rf = new ReportForm;
                                         'date'=>$date,
                                         'total'=>$total,
                                         'totalcount'=>$totalcount,
-                                        'user_name'=>$user_name,
+                                        'user_name2'=>$user_name2,
                                         'date'=>$date));
 
 

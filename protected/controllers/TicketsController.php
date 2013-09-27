@@ -110,9 +110,9 @@ $this->render('view',array(
 	$model->created_by=Yii::app()->user->id;
         $model->save();
         $departure=isset($model->schedule->departure_date) ? $model->schedule->departure_date.' '.date('g:i A',strtotime($model->schedule->departure_time)) : 'OPEN';
-        $tktDetails[] = array('tkt_no'=>$model->tkt_no,'bus'=>@$model->bus->name,
+        $tktDetails[] = array('tkt_no'=>$model->tkt_no,'bus'=>$model->bus->name,
                               'route'=>$model->route->line,'ptype'=>$model->passengerType->name,
-                              'driver'=>@$model->schedule->driver->name,
+                              'driver'=>$model->schedule->driver->name,
                               'departure'=>$departure,
                               'dop'=>$model->created_at,
                               'tkt_type'=>$model->ticketType->name,'amt'=>$amt
