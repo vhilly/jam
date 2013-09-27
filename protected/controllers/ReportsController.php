@@ -113,7 +113,7 @@ $rf = new ReportForm;
     if(isset($_POST['ReportForm'])){
       $rf->attributes=$_POST['ReportForm'];
     }
-    $date = $rf->date_range ? $rf->date_range : NULL;
+    $date = $rf->date_range ? $rf->date_range : "'".date("Y-m-d")."' AND '".date("Y-m-d")."'";
     $user_name=$rf->user_name;
    
         $sql="SELECT SUM(amt) AS amt,COUNT(*) AS count FROM tickets WHERE status = 1 AND created_by= '".$user_name."'";
@@ -177,7 +177,7 @@ $rf = new ReportForm;
       $rf->attributes=$_POST['ReportForm'];
     }
 
- $date = $rf->date_range ? $rf->date_range : NULL;
+ $date = $rf->date_range ? $rf->date_range : "'".date("Y-m-d")."' AND '".date("Y-m-d")."'";
 
     $user_name=Yii::app()->user->id;
     $user_name2=Yii::app()->user->username;
