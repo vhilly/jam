@@ -42,7 +42,7 @@
             array('label'=>'Average Passenger Count', 'url'=>array('/reports/averagePassengerCount')),
 	    array('label'=>'Tellers Report', 'url'=>array('/reports/tellersReport')),
 
-          ), 'visible'=>Yii::app()->user->checkAccess('Admin')),
+          ), 'visible'=>Yii::app()->user->checkAccess('Master')),
           array('label'=>'Login', 'url'=>array('/user/login'), 'active'=>false,'visible'=>Yii::app()->user->isGuest),
           array('label'=>'Register', 'url'=>array('/user/registration'), 'active'=>false,'visible'=>Yii::app()->user->isGuest),
           array('icon'=>'','label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
