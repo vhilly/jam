@@ -29,16 +29,21 @@
 
 
 <body onload="printMe()">
-  
+ <div class="tbl5" style="height:30px">
+    <span style="padding-left:5px;"><b>JAM LINER</b></span>
+    <img src="images/logo.jpg" width="30" height="30" style="float:left">
+  </div>
+ 
 
-<center><b>Teller's Report</b></center>
+<div class="tbl1"><center><b><u>Teller's Report</u></b></center>
 <br>
+</div>
 <table class="tbl1">
 <tr>
-<td>Teller:<?echo $_GET['user_name2'];?><td>
+<td>Teller: <?echo $_GET['user_name2'];?><td>
 </tr>
 <tr>
-<td>Date:<?echo str_replace("AND","-",$_GET['dateRange']);?></td>
+<td>Date: <?echo $_GET['dateRange'] ? str_replace("AND","-",$_GET['dateRange']) : "'".date("Y-m-d")."'";?></td>
 </tr>
 </table>
 
@@ -57,22 +62,21 @@
 
 <?$d=$_GET['result'];?>
 
+<? //echo "<pre>";print_r($d);echo "</pre>";die();?>
 
 
-<?//echo implode(",",$d);?>
+    <? foreach($d as $r):?>
+    <tr>
+	<td><?=$r['ptype']?></td>
+	<td><center><?=$r['tcount']?></td>
+	<td align=right><span style="float:left">P</span> <?=number_format($r['tamt'],2)?></td>
 
-	
-    		<tr>
-        	<td><?echo $d['ptype'];?></td>
-        	<td><?echo $d['tcount'];?></td>
-        	<td>P <?echo $d['tamt'];?></td>
-
-    	</tr>
-   
+    </tr>
+    <? endforeach;?>
     	<tr>
       		<td><b>Total</td>
-      		<td><b><?echo $_GET['totalcount'];?></td>
-      		<td><b>P <?echo $_GET['total'];?></td>
+      		<td><center><b><?echo $_GET['totalcount'];?></td>
+      		<td align=right><b><span style="float:left">P</span><?echo $_GET['total'];?></td>
     	</tr>
 
 </table>
@@ -81,9 +85,9 @@
 <script>
  function printMe(){
 
-//  window.print();
+  window.print();
 //  window.close();
- // document.location.href='<?=Yii::app()->createUrl("/reports/tellersReport")?>';
+  document.location.href='<?=Yii::app()->createUrl("/site/index")?>';
 }
 </script>
 

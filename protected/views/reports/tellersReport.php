@@ -49,19 +49,20 @@
       <th>Total Count</th>
       <th>Total Amount</th>
     </tr>
-
+    <? $list = array();?>
     <? foreach($result as $r):?>
+      <? $list[] = $r?>
     <tr>
 	<td><?=$r['ptype']?></td>
-	<td><?=$r['tcount']?></td>
-	<td>P <?=number_format($r['tamt'],2)?></td>
+	<td><center><?=$r['tcount']?></td>
+	<td style="text-align:right"><span style="float:left">P </span> <?=number_format($r['tamt'],2)?></td>
 
     </tr>
     <? endforeach;?>
     <tr>
       <td>Total</td>
-      <td><?=$totalcount?></td>
-      <td>P <?=$total?></td>
+      <td><center><?=$totalcount?></td>
+      <td style="text-align:right"><span style="float:left">P </span> <?=$total?></td>
     </tr>
   </table>
  
@@ -71,7 +72,7 @@
 
 
 <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Print','type'=>'info','buttonType'=>'button','url'=>Yii::app()->createUrl('/reports/tellersPrint',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'','width'=>'' ,
-      'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array('result'=>$r,
+      'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array('result'=>$list,
 				'totalcount'=>$totalcount,
 				'total'=>$total,
 				'totalcount'=>$totalcount,

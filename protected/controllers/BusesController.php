@@ -67,14 +67,17 @@ $model=new Buses;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Buses']))
-{
-$model->attributes=$_POST['Buses'];
-if($model->save()){
-Yii::app()->user->setFlash('success', 'Bus has been added!');
-$this->redirect(array('admin'));
+if(isset($_POST['Buses'])){
+  $model->attributes=$_POST['Buses'];
+  try{
+    if($model->save()){
+      Yii::app()->user->setFlash('success', 'Bus has been added!');
+      $this->redirect(array('admin'));}
+  }catch(Exception $e){
+    Yii::app()->user->setFlash('error', 'Bus already exist!');
+  }
 }
-}
+
 $this->render('create',array(
 'model'=>$model,
 ));
@@ -92,14 +95,17 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Buses']))
-{
-$model->attributes=$_POST['Buses'];
-if($model->save()){
-Yii::app()->user->setFlash('success', 'Bus has been updated!');
-$this->redirect(array('admin'));
+if(isset($_POST['Buses'])){
+  $model->attributes=$_POST['Buses'];
+  try{
+    if($model->save()){
+      Yii::app()->user->setFlash('success', 'Bus has been updated!');
+      $this->redirect(array('admin'));}
+  }catch(Exception $e){
+    Yii::app()->user->setFlash('error', 'Bus already exist!');
+  }
 }
-}
+
 $this->render('update',array(
 'model'=>$model,
 ));
