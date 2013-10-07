@@ -72,6 +72,7 @@ class Tickets extends CActiveRecord
 			'id' => 'ID',
 			'tkt_no' => 'Ticket No',
 			'ticket_type_id' => 'Ticket Type',
+			'passenger_type_id' => 'Passenger Type',
 			'schedule_id' => 'Trip#',
 			'seat_id' => 'Seat',
 			'bus_id' => 'Bus',
@@ -104,6 +105,7 @@ class Tickets extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('tkt_no',$this->tkt_no,true);
 		$criteria->compare('ticket_type_id',$this->ticket_type_id,true);
+		$criteria->compare('amt',$this->amt);
 		$criteria->compare('passenger_type_id',$this->passenger_type_id,true);
 		$criteria->compare('schedule_id',$this->schedule_id);
 		$criteria->compare('seat_id',$this->seat_id);

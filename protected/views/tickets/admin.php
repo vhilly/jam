@@ -19,7 +19,7 @@
 		array('name'=>'passenger_type_id','value'=>'$data->passengerType->name','filter'=>CHtml::listData(PassengerTypes::model()->findAll(),'id','name')),
 		array('name'=>'ticket_type_id','value'=>'$data->ticketType->name','filter'=>CHtml::listData(TicketTypes::model()->findAll(),'id','name')),
 		'amt',
-		array('name'=>'status','value'=>'$data->status ==1 ? "Valid" : "Cancelled"','filter'=>array('1'=>'Valid','2'=>'Canceled')),
+		array('name'=>'status','value'=>'$data->status ==1 ? "Valid" : "Cancelled"','filter'=>array('1'=>'Valid','2'=>'Cancelled')),
 
 		array(
                   'name'=>'created_at',
