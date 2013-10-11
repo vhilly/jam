@@ -40,13 +40,13 @@
         )));
        ?>
 
-	<?php echo $form->dropDownListRow($model,'route_id',CHtml::listData(Routes::model()->findAll(),'id','line'),array('class'=>'span2','empty'=>'')); ?>
+	<?php echo $form->dropDownListRow($model,'route_id',CHtml::listData(Routes::model()->findAll(),'id','line'),array('class'=>'span15','empty'=>'')); ?>
 
         <?php echo $form->datePickerRow($model, 'departure_date', array('append'=>'<i class="icon-calendar" style="cursor:pointer"></i>','class'=>'span2','options'=>array( 'format' => 'yyyy-mm-dd')));?>
 
-        <?php echo $form->timepickerRow($model, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('template'=>'modal','defaultTime'=>'00:00','minuteStep'=>1,'showMeridian'=>false)));?>
+        <?php echo $form->timepickerRow($model, 'departure_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('defaultTime'=>'00:00','minuteStep'=>5,'showMeridian'=>false,'disableFocus'=>true)));?>
 
-        <?php echo $form->timepickerRow($model, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('template'=>'modal','defaultTime'=>'00:00','minuteStep'=>1,'showMeridian'=>false)));?>
+        <?php echo $form->timepickerRow($model, 'arrival_time', array('append'=>'<i class="icon-time" style="cursor:pointer"></i>','class'=>'span2','options'=>array('defaultTime'=>'00:00','minuteStep'=>5,'showMeridian'=>false,'disableFocus'=>true)));?>
 
 
 <br>

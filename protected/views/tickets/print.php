@@ -51,7 +51,7 @@
     Driver#: <?=isset($t['driver'])?$t['driver']:''?>
   </div>
   <div class="tbl3">
-    Date: <?=isset($t['dop']) ? $t['dop']: date('Y-m-d')?>
+    Date Issue: <?=isset($t['dop']) ? $t['dop']: date('Y-m-d')?>
   </div>
   <div class="tbl3">
     Departure: <?=isset($t['departure'])?$t['departure']:''?>
@@ -92,7 +92,7 @@
     Driver#: <?=isset($t['driver'])?$t['driver']:''?>
   </div>
   <div class="tbl3">
-    Date: <?=isset($t['dop']) ? $t['dop']: date('Y-m-d')?>
+    Date Issue: <?=isset($t['dop']) ? $t['dop']: date('Y-m-d')?>
   </div>
   <div class="tbl3">
     Departure: <?=isset($t['departure'])?$t['departure']:''?>

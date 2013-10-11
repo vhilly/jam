@@ -29,7 +29,7 @@
     'htmlOptions' => array('class'=>'bootstrap-widget-table well span')
   ));?>
 
-<?php if($result):?>
+<?php if(count($result)):?>
   <table class="span5">
     <tr>
       <th>Passenger Type</th>

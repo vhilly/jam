@@ -83,10 +83,4 @@
 <?php endif;?>
   <?php $this->endWidget();?>
 
-<table>
-	<tr>
-		<td><??></td>
-	</tr>
-
-
 </div>

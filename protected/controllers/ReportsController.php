@@ -43,19 +43,55 @@ array('deny',  // deny all users
 );
 }
 */
+public function actionTripReport(){
+    $rf = new ReportForm;
+    $result=array();
+    $data=array();
+    if(isset($_POST['ReportForm'])){
+      $rf->attributes=$_POST['ReportForm'];
+      $rf->date_trip = $rf->date_trip ? $rf->date_trip : date('Y-m-d');
+      $rf->trip = $rf->trip ? $rf->trip : NULL;
+
+      $sql = "SELECT s.id trip_no,r.line route,b.number bus,d.name driver 
+	FROM schedules as s,routes as r,buses b,drivers d 
+	WHERE s.route_id=r.id AND s.bus_id=b.id AND s.driver_id=d.id AND departure_date = '". $rf->date_trip ."'";
+      if($rf->trip)
+        $sql .= " AND s.id = $rf->trip";
+      $result = Yii::app()->db->createCommand($sql)->queryAll();
+
+      $res=array();
+      foreach($result as $r){
+        $res[]= $r['trip_no'];
+      }
+      $res ? $rf->trip = $rf->trip ? $rf->trip : $res[0] : $rf->trip = $rf->trip ? $rf->trip : NULL;
+
+      $sql = "SELECT created_by, SUM(amt) as a, COUNT(*) as c, pt.name as ptype
+	FROM tickets as t,schedules as s, passenger_types as pt
+	WHERE t.status=1 AND t.schedule_id=s.id AND t.passenger_type_id=pt.id AND s.departure_date= '". $rf->date_trip ."'";
+      if($rf->trip)
+	$sql .= " AND schedule_id=$rf->trip";
+      $sql .=" GROUP BY ptype";
+      $data = Yii::app()->db->createCommand($sql)->queryAll();
+    }
+    $this->render('tripReport',array('rf'=>$rf,'result'=>$result,'data'=>$data));
+}
+
   public function actionPassengerCount(){
     $rf = new ReportForm;
     $result=array();
     if(isset($_POST['ReportForm'])){
       $rf->attributes=$_POST['ReportForm'];
     $date = $rf->date_range ? $rf->date_range : "'".date('Y-m-d')."' AND '".date('Y-m-d')."'";
-    $sql ="SELECT s.departure_date departure,COUNT(*) cnt,SUM(amt) amt FROM tickets as t,schedules as s WHERE t.schedule_id = s.id AND s.departure_date BETWEEN {$date} ";
+    $sql ="SELECT s.departure_date departure,COUNT(*) cnt,SUM(amt) amt FROM tickets as t,schedules as s WHERE t.schedule_id = s.id ";
+    if($date)
+      $sql .= " AND s.departure_date BETWEEN $date ";
     if($rf->bus)
       $sql .= " AND s.bus_id='$rf->bus' ";
     if($rf->route)
       $sql .= " AND s.route_id='$rf->route' ";
     if($rf->driver)
       $sql .= " AND s.driver_id='$rf->driver' ";
+     if($date)
     $sql .= "GROUP BY s.departure_date";
     $result = Yii::app()->db->createCommand($sql)->queryAll();
     }
@@ -68,7 +104,7 @@ array('deny',  // deny all users
     if(isset($_POST['ReportForm'])){
       $rf->attributes=$_POST['ReportForm'];
     }
-    $date = $rf->date_range ? $rf->date_range : NULL;
+    $date = $rf->date_range ? $rf->date_range : "'".date('Y-m-d')."' AND '".date('Y-m-d')."'";
     $sql =" SELECT   day_of_week,   
              AVG(passenger) as avg_pass
              FROM  
@@ -143,7 +179,7 @@ $rf = new ReportForm;
 
 		
     $sql .= "GROUP BY ptype";
-		
+   $rf->date_range = $date;		
    $result = Yii::app()->db->createCommand($sql)->query();
    $this->render('tellersReport',array('result'=>$result,
 					'rf'=>$rf,
@@ -206,8 +242,8 @@ $rf = new ReportForm;
   
 
 
-    $sql .= "GROUP BY ptype";
-              
+    $sql .= "GROUP BY ptype";              
+   $rf->date_range = $date;		
    $result = Yii::app()->db->createCommand($sql)->query();
    $this->render('tellersRevenue',array('result'=>$result,
                                         'rf'=>$rf,

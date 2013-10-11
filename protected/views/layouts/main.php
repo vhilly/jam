@@ -41,6 +41,7 @@
             array('label'=>'Passenger Count', 'url'=>array('/reports/passengerCount')),
             array('label'=>'Average Passenger Count', 'url'=>array('/reports/averagePassengerCount')),
 	    array('label'=>'Tellers Report', 'url'=>array('/reports/tellersReport')),
+	    array('label'=>'Trip Report', 'url'=>array('/reports/tripReport')),
 
           ), 'visible'=>Yii::app()->user->checkAccess('Master')),
           array('label'=>'Login', 'url'=>array('/user/login'), 'active'=>false,'visible'=>Yii::app()->user->isGuest),
