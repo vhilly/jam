@@ -7,7 +7,7 @@
       <?php foreach($schedules as $key=>$s):?>
         <?php $seatsLft = isset($bookedTkts[$s->id]) ? $s->bus->seats - $bookedTkts[$s->id] : $s->bus->seats ?>
         <a id="<?=$s->id?>" class="buy buyBig btn <?=$seatsLft > 0 ? 'btn-success' : 'btn-danger'?> btn-large">
-          <?=$s->route->line?> ETD : <?=date('g:i A',strtotime($s->departure_time))?> <br><br>TRIP#<?=$s->id?> BUS# <?=$s->bus->number?>
+        <font color="black"><b><?=$s->route->line?></b></font> ETD : <?=date('g:i A',strtotime($s->departure_time))?> <br><br>TRIP#<?=$s->id?> BUS# <?=$s->bus->number?>
         </a>
         <div class=clearfix></div>
         <?=$seatsLft > 0 ? $seatsLft.' SEATS LEFT' : 'STANDING'?> 

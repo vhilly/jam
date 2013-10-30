@@ -68,7 +68,7 @@ $this->render('view',array(
           'select'=>'schedule_id,count(*) AS cnt',
         );
         $bookedTkts = CHtml::listData(Tickets::model()->findAll($criteria),'schedule_id','cnt');
-        $schedules = Schedules::model()->findAll(array('condition'=>'status=1 AND departure_date=CURDATE() limit 3'));
+        $schedules = Schedules::model()->findAll(array('condition'=>'status=1 AND departure_date=CURDATE()'));
         if($total_amt)
           Yii::app()->user->setFlash('info', "TOTAL AMOUNT: $total_amt");
 	$this->render('sell',array('schedules'=>$schedules,'bookedTkts'=>$bookedTkts,'tag'=>$tag));
