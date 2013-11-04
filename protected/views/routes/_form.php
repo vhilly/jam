@@ -23,6 +23,8 @@
 	<?php echo $form->textFieldRow($model,'fare',array('class'=>'span1','maxlength'=>20)); ?>
 
 	<?php echo $form->dropDownListRow($model,'active',array('Y'=>'Yes','N'=>'No'),array('class'=>'span1','maxlength'=>1)); ?>
+
+	<?php echo $form->textFieldRow($model,'color',array('class'=>'span1','maxlength'=>20)); ?>
 <br>
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',

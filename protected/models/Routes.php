@@ -50,12 +50,12 @@ class Routes extends CActiveRecord
 		return array(
 			array('line, origin, destination', 'required'),
 			array('origin, destination', 'numerical', 'integerOnly'=>true),
-			array('line, distance, travel_time', 'length', 'max'=>255),
+			array('line, distance, travel_time, color', 'length', 'max'=>255),
 			array('fare', 'length', 'max'=>20),
 			array('active', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, line, origin, destination, distance, travel_time, other_info, fare, active', 'safe', 'on'=>'search'),
+			array('id, line, origin, destination, distance, travel_time, other_info, fare, active, color', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +89,7 @@ class Routes extends CActiveRecord
 			'other_info' => 'Other Info',
 			'fare' => 'Fare',
 			'active' => 'Active',
+			'color' => 'Color'
 		);
 	}
 
@@ -112,6 +113,7 @@ class Routes extends CActiveRecord
 		$criteria->compare('other_info',$this->other_info,true);
 		$criteria->compare('fare',$this->fare,true);
 		$criteria->compare('active',$this->active,true);
+		$criteria->compare('color',$this->active,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

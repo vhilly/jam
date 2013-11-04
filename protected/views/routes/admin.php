@@ -13,6 +13,7 @@
     #'other_info',
     'fare',
     #'active',
+    'color',
     array(
       'class'=>'bootstrap.widgets.TbButtonColumn',
     ),
