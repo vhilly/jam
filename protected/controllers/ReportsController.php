@@ -76,6 +76,27 @@ public function actionTripReport(){
     $this->render('tripReport',array('rf'=>$rf,'result'=>$result,'data'=>$data));
 }
 
+  public function actionGrandTotal(){
+    $rf = new ReportForm;
+    $total = 0;
+    $totalcount =0; 
+    $result=array();
+    if(isset($_POST['ReportForm'])){
+      $rf->attributes=$_POST['ReportForm'];
+      $rf->date_range = $rf->date_range ? $rf->date_range : "'".date('Y-m-d')."' AND '".date('Y-m-d')."'";
+
+      $sql = "SELECT SUM(amt) as a,COUNT(*) as c FROM tickets t,schedules s WHERE t.status=1 AND s.departure_date BETWEEN $rf->date_range";
+      $result = Yii::app()->db->createCommand($sql)->queryAll();
+
+      foreach($result as $r){
+        $total = number_format($r['a'],2);
+        $totalcount = number_format($r['c']);
+      }
+
+    }
+    $this->render('grandTotal',array('rf'=>$rf,'result'=>$result,'total'=>$total,'totalcount'=>$totalcount));
+  }
+
   public function actionPassengerCount(){
     $rf = new ReportForm;
     $result=array();

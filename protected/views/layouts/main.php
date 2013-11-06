@@ -28,7 +28,7 @@
         'items' => array(
           array('label'=>'Home', 'url'=>array('/site/index'), 'visible'=>!Yii::app()->user->isGuest,'active'=>false),
           array('label'=>'Trips', 'url'=>array('/schedules/admin'), 'visible'=>Yii::app()->user->checkAccess('Master'),'active'=>false),
-          array('label'=>'Purchase', 'url'=>array('/tickets/sell'), 'active'=>false, 'visible'=>Yii::app()->user->checkAccess('Teller')),
+          array('label'=>'Purchase', 'url'=>array('/tickets/sell'), 'active'=>false, 'visible'=>Yii::app()->user->checkAccess('Tickets')),
           array('label'=>'Tickets', 'url'=>array('/tickets/admin'), 'active'=>false, 'visible'=>Yii::app()->user->checkAccess('Teller')),
           array('label'=>'Routes', 'url'=>array('/routes/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),
           array('label'=>'Passenger Types', 'url'=>array('/passengerTypes/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),
@@ -37,20 +37,23 @@
           array('label'=>'Locations', 'url'=>array('/location/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),
           array('label'=>'Bus Assignment', 'url'=>array('/tickets/busAssignment'), 'visible'=>Yii::app()->user->checkAccess('Conductor'),'active'=>false),
 	  array('label'=>'Jammers', 'url'=>array('/jammers/admin'), 'visible'=>Yii::app()->user->checkAccess('Admin'), 'active'=>false),
+
           array('icon'=>'','label'=>'Reports', 'url'=>'#', 'items'=>array(
             array('label'=>'Passenger Count', 'url'=>array('/reports/passengerCount')),
             array('label'=>'Average Passenger Count', 'url'=>array('/reports/averagePassengerCount')),
 	    array('label'=>'Tellers Report', 'url'=>array('/reports/tellersReport')),
 	    array('label'=>'Trip Report', 'url'=>array('/reports/tripReport')),
-
           ), 'visible'=>Yii::app()->user->checkAccess('Master')),
+         
           array('label'=>'Login', 'url'=>array('/user/login'), 'active'=>false,'visible'=>Yii::app()->user->isGuest),
           array('label'=>'Register', 'url'=>array('/user/registration'), 'active'=>false,'visible'=>Yii::app()->user->isGuest),
+
           array('icon'=>'','label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
             array('label'=>'Rights', 'url'=>array('/rights'),'visible'=>Yii::app()->user->checkAccess('Admin'),),
             array('label'=>'User', 'url'=>array('/user/admin'),'visible'=>Yii::app()->user->checkAccess('Admin'),),
 	    array('label'=>'Tellers Revenue', 'url'=>array('/reports/tellersRevenue'),'visible'=>Yii::app()->user->checkAccess('Teller'),),
             array('icon'=>'off','label'=>'Logout', 'url'=>array('/user/logout')),
+            array('icon'=>'icon-warning-sign','label'=>'Reset Factory Settings', 'url'=>array('/site/reset'),'linkOptions'=>array('confirm'=>'Are you sure you want to reset the system settings?'),'visible'=>Yii::app()->user->checkAccess('Admin'),),
           ),'visible'=>!Yii::app()->user->isGuest),
 
         )

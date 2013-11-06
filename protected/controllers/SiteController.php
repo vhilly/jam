@@ -114,4 +114,15 @@ public function filters()
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+      public function actionReset()
+        {
+          $dump_path = $_SERVER['DOCUMENT_ROOT'] . '/jam/protected/data/jamliner' . date('ymd-his') . '.sql';
+	  shell_exec('mysqldump -uroot -pmysqladmin jamliner >' . $dump_path);
+          $reset_path= $_SERVER['DOCUMENT_ROOT'] . '/jam/protected/data/reset.sql';
+	  shell_exec('mysql -uroot -pmysqladmin jamliner < ' . $reset_path);
+          Yii::app()->user->setFlash('info', 'System settings have been resetted xD');
+          $this->redirect(Yii::app()->homeUrl);
+        }
+
 }
