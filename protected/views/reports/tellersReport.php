@@ -49,16 +49,16 @@
       <th>Total Count</th>
       <th>Total Amount</th>
     </tr>
-    <? $list = array();?>
-    <? foreach($result as $r):?>
-      <? $list[] = $r?>
+    <?php $list = array();?>
+    <?php foreach($result as $r):?>
+      <?php $list[] = $r?>
     <tr>
 	<td><?=$r['ptype']?></td>
 	<td><center><?=$r['tcount']?></td>
 	<td style="text-align:right"><span style="float:left">P </span> <?=number_format($r['tamt'],2)?></td>
 
     </tr>
-    <? endforeach;?>
+    <?php endforeach;?>
     <tr>
       <td>Total</td>
       <td><center><?=$totalcount?></td>
@@ -66,17 +66,16 @@
     </tr>
   </table>
  
-<? $user= User::model()->findByPk($user_name);?>
-<? $userFname=ucwords(strtolower($user->profile->firstname)) . '&nbsp' . ucwords(strtolower($user->profile->lastname));?>
+<?php $user= User::model()->findByPk($user_name);
+ $userFname=ucwords(strtolower($user->profile->firstname)) . '&nbsp' . ucwords(strtolower($user->profile->lastname));
 
 
-
-<?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Print','type'=>'info','buttonType'=>'button','url'=>Yii::app()->createUrl('/reports/tellersPrint',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'','width'=>'' ,
+ $this->widget('bootstrap.widgets.TbButton', array('label'=>'Print','type'=>'info','buttonType'=>'button','url'=>Yii::app()->createUrl('/reports/tellersPrint',array('success'=>true)),'icon'=>'icon-print','htmlOptions'=>array('name'=>'print','class'=>'','width'=>'' ,
       'onclick'=>'window.open("'.Yii::app()->createUrl('reports/tellersPrint',array('result'=>$list,
 				'totalcount'=>$totalcount,
 				'total'=>$total,
 				'totalcount'=>$totalcount,
-                                'user_name2'=>$userFname,
+                                'user_name'=>$userFname,
 				'dateRange'=>$rf['date_range'],
 				'print'=>1)).'");this.submit();')))
     ?>

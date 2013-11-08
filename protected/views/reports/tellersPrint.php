@@ -40,10 +40,10 @@
 </div>
 <table class="tbl1">
 <tr>
-<td>Teller: <?echo $_GET['user_name2'];?><td>
+<td>Teller: <?php echo $_GET['user_name'];?><td>
 </tr>
 <tr>
-<td>Date: <?echo $_GET['dateRange'] ? str_replace("AND","-",$_GET['dateRange']) : "'".date("Y-m-d")."'";?></td>
+<td>Date: <?php echo $_GET['dateRange'] ? str_replace("AND","-",$_GET['dateRange']) : "'".date("Y-m-d")."'";?></td>
 </tr>
 </table>
 
@@ -60,23 +60,23 @@
 
 
 
-<?$d=$_GET['result'];?>
+<?php $d=$_GET['result'];?>
 
-<? //echo "<pre>";print_r($d);echo "</pre>";die();?>
+<?php //echo "<pre>";print_r($d);echo "</pre>";die();?>
 
 
-    <? foreach($d as $r):?>
+    <?php foreach($d as $r):?>
     <tr>
 	<td><?=$r['ptype']?></td>
 	<td><center><?=$r['tcount']?></td>
 	<td align=right><span style="float:left">P</span> <?=number_format($r['tamt'],2)?></td>
 
     </tr>
-    <? endforeach;?>
+    <?php endforeach;?>
     	<tr>
       		<td><b>Total</td>
-      		<td><center><b><?echo $_GET['totalcount'];?></td>
-      		<td align=right><b><span style="float:left">P</span><?echo $_GET['total'];?></td>
+      		<td><center><b><?php echo $_GET['totalcount'];?></td>
+      		<td align=right><b><span style="float:left">P</span><?php echo $_GET['total'];?></td>
     	</tr>
 
 </table>
